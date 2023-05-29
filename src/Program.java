@@ -1,19 +1,40 @@
+import java.util.Scanner;
+
 public class Program {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         Funcionario funcionario = new Funcionario();
-        funcionario.nome = "Ayala";
-        funcionario.quantidadeDeFilhos = 2;
 
+        System.out.println("Digite o nome do Funcionario: ");
+        funcionario.nome = scanner.nextLine();
+
+        System.out.println("Funcionario tem filhos? SIM ou NAO ");
+        char opcao = scanner.next().toLowerCase().charAt(0);
+
+        if (opcao =='s') {
+            System.out.println("Quantos filhos o funcionario possui? ");
+            funcionario.quantidadeDeFilhos = scanner.nextInt();
+        }
         ContratoTrabalho contratoTrabalho = new ContratoTrabalho();
         contratoTrabalho.funcionario = funcionario;
-        contratoTrabalho.valorHoraNormal = 10;
-        contratoTrabalho.valorHoraExtra = 15;
+
+        System.out.println("Qual valor da hora normal? ");
+        contratoTrabalho.valorHoraNormal = scanner.nextDouble();
+        System.out.println("Qual valor da hora extra? ");
+        contratoTrabalho.valorHoraExtra = scanner.nextDouble();
 
         FolhaPagamento folhaPagamento = new FolhaPagamento();
 
-        double salarioDevido = folhaPagamento.calcularSalario(200, 20,
-                contratoTrabalho);
+        System.out.println("Quantas horas o funcionario trabalhou? ");
+        int horasTrabalhadasNormais = scanner.nextInt();
+        System.out.println("Quantas horas Extras o funcionario trabalhou? ");
+        int horasTrabalhadasExtras = scanner.nextInt();
 
-        System.out.printf("Salario devido: R$ %.2f%n", salarioDevido);
+        Holerite holerite = folhaPagamento.calcularSalario(horasTrabalhadasNormais, horasTrabalhadasExtras,
+                contratoTrabalho);
+        System.out.println();
+        holerite.imprime();
+
+        scanner.close();
     }
 }
